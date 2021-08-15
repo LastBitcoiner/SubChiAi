@@ -23,6 +23,7 @@ def grab_sub(vid_link, selenium_path=0, download_path=0):
         "download.directory_upgrade": True,
         "safebrowsing.enabled": True
     })
+    options.add_argument('log-level=3')
 
     driver = webdriver.Chrome(PATH, options=options)
 
@@ -31,7 +32,7 @@ def grab_sub(vid_link, selenium_path=0, download_path=0):
     time.sleep(10)
 
     sublink = driver.find_element_by_xpath(
-        "//a[contains(@class,'w-4/12 mx-1')]")
+        "(//a[contains(@class,'w-4/12 mx-1')])[3]")
     sublink.get_attribute("href")
     sublink.click()
     time.sleep(5)

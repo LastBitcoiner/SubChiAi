@@ -1,9 +1,13 @@
 # export class to convert txt file of subtitle string to csv file
 
 import csv
+from pathlib import Path
 
 
 def export(inputfile, removeperps=True, outputfile=""):
+
+    path = Path(
+        "C:/Users/omido/Documents/GitHub/SubChiAI/SubChiAi/src/assets/subs")
     lines = ""
 
     # prepositions of english
@@ -15,8 +19,9 @@ def export(inputfile, removeperps=True, outputfile=""):
 
     full_perps = common_prepositions+less_comman_prepositions
 
+    input_path = path / inputfile
     # open source file and read data line by line
-    with open(inputfile) as f:
+    with open(input_path) as f:
         for line in f:
             if not line.strip():
                 continue  # skip the empty line
@@ -25,9 +30,11 @@ def export(inputfile, removeperps=True, outputfile=""):
 
     # seprate each word to list and number of repeats
     words = lines.split()  # list of words in a input string
+    countdict = []
     for i in range(len(words)):
-        words.append([words[i], lines.count(words[i])])
+        countdict.append([words[i], lines.count(words[i])])
 
+    words = countdict
     # remove duplicates
     res = []
     [res.append(x) for x in words if x not in res]
@@ -38,7 +45,7 @@ def export(inputfile, removeperps=True, outputfile=""):
 
     # remove junk words
     junk_list = []
-    if removeperps == 1:
+    if removeperps == True:
         [junk_list.append(x) for x in indexwords if "[" in x and "]" in x or len(
             x) < 3 or x in full_perps]
         [words.remove(x) for x in words if x[0] in junk_list]
@@ -49,8 +56,10 @@ def export(inputfile, removeperps=True, outputfile=""):
     # save final result into the csv file
     fields = ['words', 'repeats']
 
+    out_path = Path(
+        "C:/Users/omido/Documents/GitHub/SubChiAI/SubChiAi/src/assets/exported")
     if outputfile == "":
-        outputfile = "final_" + inputfile
+        outputfile = out_path / inputfile
     with open(outputfile, 'w') as f:
 
         # using csv.writer method from CSV package

@@ -115,3 +115,5 @@ dmypy.json
 
 
 /ipynbfiles
+/src/assets/exported/*
+/src/assets/subs/*

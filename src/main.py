@@ -1,9 +1,19 @@
 from utils.grab_subtitle import grab_sub as gs
-from pathlib import Path
+from utils.export import export
+import os
 
+vid_link = input('enter video link: ')
 
-seleniumPATH = "C:/Users/omido/Documents/GitHub/SubChiAI/SubChiAi/bin/chromedriver.exe"
-seleniumDownloadDir = "C:/Users/omido/Documents/SubChiAI/assets/subs"
-vid_link = "https://www.youtube.com/watch?v=KItleddMYFU"
+gs(vid_link)
 
-gs(vid_link, seleniumPATH, seleniumDownloadDir)
+path = r'C:\Users\omido\Documents\GitHub\SubChiAI\SubChiAi\src\assets\subs'
+
+files = os.listdir(path)
+
+try:
+    for i in files:
+        export(i)
+
+    print('all your files is ready in exported folder!')
+except:
+    print('an error occured')
