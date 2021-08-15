@@ -114,6 +114,5 @@ dmypy.json
 .pyre/
 
 
-/ipynbfiles
-/src/assets/exported/*
-/src/assets/subs/*
+/exported/*
+/subs/*
